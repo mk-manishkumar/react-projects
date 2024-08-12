@@ -1,0 +1,37 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.board-row {
+  display: flex;
+}
+
+.square {
+  height: 120px;
+  width: 120px;
+  margin: 2px;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.reset {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.reset button {
+  border: none;
+  border-radius: 10px;
+  background-color: red;
+  color: rgb(254, 254, 253);
+  padding: 10px 16px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.reset button:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
