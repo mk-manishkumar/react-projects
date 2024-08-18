@@ -26,6 +26,10 @@ const App = () => {
       return;
     }
 
+    // Initialize amount if not present in item
+    if (!item.amount) {
+      item.amount = 1;
+    }
     setCart([...cart, item]);
   };
 
@@ -37,7 +41,7 @@ const App = () => {
       }
     });
 
-    const tempArray = cart;
+    const tempArray = [...cart];
     tempArray[ind].amount += 0;
     if (tempArray[ind].amount === 0) {
       tempArray[ind].amount = 1;

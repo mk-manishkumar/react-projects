@@ -37,14 +37,14 @@ const Cart = ({ cart, setCart, handleProductQuantity }) => {
           </div>
 
           <div>
-            <span>{item.price}</span>
+            <span>₹{item.price}</span>
             <button onClick={() => removeProduct(item.id)}>Remove</button>
           </div>
         </div>
       ))}
 
       <div className="total">
-        <span>Total Price: $price</span>
+        <span>Total Price: ₹{price}</span>
       </div>
     </div>
   );
