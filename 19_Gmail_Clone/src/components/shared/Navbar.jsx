@@ -1,47 +1,75 @@
+import React, { useEffect, useState } from "react";
+import { IoSettingsOutline } from "react-icons/io5";
+import { FaRegQuestionCircle } from "react-icons/fa";
+import { PiDotsNineBold } from "react-icons/pi";
+import { IoIosSearch } from "react-icons/io";
+import Avatar from "react-avatar";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { IoSearchOutline } from "react-icons/io5";
-import { CiCircleQuestion } from "react-icons/ci";
-import { IoIosSettings } from "react-icons/io";
-import { PiDotsNineLight } from "react-icons/pi";
-import Avatar from "react-avatar"; 
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthUser, setSearchText } from "../../redux/appSlice";
+import { auth } from "../../firebase";
+import { signOut } from "firebase/auth";
+// eslint-disable-next-line no-unused-vars
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
+  const [search, setSearch] = useState("");
+  const [toggle, setToggle] = useState(false);
+  const dispatch = useDispatch();
+  const { authUser } = useSelector((store) => store.app);
+
+  const signOutHandler = () => {
+    signOut(auth)
+      .then(() => {
+        dispatch(setAuthUser(null));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    dispatch(setSearchText(search));
+  }, [search, dispatch]);
+
   return (
     <div className="flex items-center justify-between mx-3 h-16">
-      {" "}
-      {/* ✅ fixed items-center */}
       <div className="flex items-center gap-10">
         <div className="flex items-center gap-2">
           <div className="p-3 rounded-full hover:bg-gray-100 cursor-pointer">
-            <RxHamburgerMenu size={20} />
+            <RxHamburgerMenu size={"20px"} />
           </div>
-          <img className="w-12" src="https://images.icon-icons.com/2642/PNG/512/google_mail_gmail_logo_icon_159346.png" alt="gmail_logo" />
-          <h1 className="text-2xl font-medium text-gray-500">Gmail</h1>
+          <img className="w-8" src={"https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png"} alt="" />
+          <h1 className="text-2xl text-gray-500 font-medium">Gmail</h1>
         </div>
       </div>
       <div className="md:block hidden w-[50%] mr-60">
-        <div className="flex items-center bg-[#eaf1fb] px-2 py-3 rounded-full">
-          <IoSearchOutline size={24} className="text-gray-700" />
-          <input type="text" className="rounded-full bg-transparent w-full px-1 outline-none" placeholder="Search Mail" />
+        <div className="flex items-center bg-[#EAF1FB] px-2 py-3  rounded-full">
+          <IoIosSearch size="24px" className="text-gray-700" />
+          <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Seach mail" className="rounded-full w-full bg-transparent outline-none px-1" />
         </div>
       </div>
-      <div className="hidden md:block">
+      <div className="md:block hidden">
         <div className="flex items-center gap-2">
           <div className="p-3 rounded-full hover:bg-gray-100 cursor-pointer">
-            <CiCircleQuestion size={20} />
+            <FaRegQuestionCircle size={"20px"} />
           </div>
           <div className="p-3 rounded-full hover:bg-gray-100 cursor-pointer">
-            <IoIosSettings size={20} />
+            <IoSettingsOutline size={"20px"} />
           </div>
           <div className="p-3 rounded-full hover:bg-gray-100 cursor-pointer">
-            <PiDotsNineLight size={20} />
+            <PiDotsNineBold size={"20px"} />
           </div>
-          <div className="cursor-pointer">
-            <Avatar
-              src="https://pbs.twimg.com/profile_images/1906995199936454657/LyJgRcTy_400x400.jpg"
-              size="40"
-              round={true} 
-            />
+          <div className="relative cursor-pointer">
+            <Avatar onClick={() => setToggle(!toggle)} src={authUser?.photoURL} googleId="118096717852922241760" size="40" round={true} />
+            <AnimatePresence>
+              {toggle && (
+                <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }} transition={{ duration: 0.1 }} className="absolute right-2 z-20 shadow-lg bg-white rounded-md">
+                  <button onClick={signOutHandler} className="p-2 underline bg-transparent border-none cursor-pointer text-left w-full" type="button">
+                    LogOut
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>

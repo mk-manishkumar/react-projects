@@ -38,9 +38,14 @@ const SendEmail = () => {
     <div className={`${open ? "block" : "hidden"} bg-white max-w-6xl shadow-xl shadow-slate-600 rounded-t-md`}>
       <div className="flex px-3 py-2 bg-[#F2F6FC] items-center justify-between rounded-t-md">
         <h1>New Message</h1>
-        <div onClick={() => dispatch(setOpen(false))} className="p-2 rounded-full hover:bg-gray-200 cursor-pointer">
+        <button
+          type="button"
+          onClick={() => dispatch(setOpen(false))}
+          className="p-2 rounded-full hover:bg-gray-200 cursor-pointer"
+          aria-label="Close"
+        >
           <RxCross2 />
-        </div>
+        </button>
       </div>
       <form onSubmit={submitHandler} className="flex flex-col p-3 gap-2">
         <input onChange={changeEventHandler} name="recipients" value={formData.recipients} type="text" placeholder="Recipients" className="outline-none py-1" />
