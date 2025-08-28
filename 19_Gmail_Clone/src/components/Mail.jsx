@@ -5,7 +5,8 @@ import { BiArchiveIn } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
-// import { motion } from "framer-motion";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 
 const Mail = () => {
   const params = useParams();
@@ -21,21 +22,21 @@ const Mail = () => {
     }
   };
   return (
-    <div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="flex-1 bg-white rounded-xl mx-5">
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="flex-1 bg-white rounded-xl mx-5">
       <div className="flex items-center justify-between px-4">
         <div className="flex items-center gap-2 text-gray-700 py-2">
-          <div onClick={() => navigate("/")} className="p-2 rounded-full hover:bg-gray-100 cursor-pointer">
+          <button type="button" onClick={() => navigate("/")} className="p-2 rounded-full hover:bg-gray-100 cursor-pointer" aria-label="Go back">
             <IoMdArrowBack size={"20px"} />
-          </div>
+          </button>
           <div className="p-2 rounded-full hover:bg-gray-100 cursor-pointer">
             <BiArchiveIn size={"20px"} />
           </div>
           <div className="p-2 rounded-full hover:bg-gray-100 cursor-pointer">
             <MdOutlineReport size={"20px"} />
           </div>
-          <div onClick={() => deleteMailById(params.id)} className="p-2 rounded-full hover:bg-gray-100 cursor-pointer">
+          <button type="button" onClick={() => deleteMailById(params.id)} className="p-2 rounded-full hover:bg-gray-100 cursor-pointer" aria-label="Delete mail">
             <MdDeleteOutline size={"20px"} />
-          </div>
+          </button>
           <div className="p-2 rounded-full hover:bg-gray-100 cursor-pointer">
             <MdOutlineMarkEmailUnread size={"20px"} />
           </div>
@@ -79,7 +80,7 @@ const Mail = () => {
           <p>{selectedMail?.message}</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
