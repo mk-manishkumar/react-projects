@@ -60,7 +60,7 @@ const Navbar = () => {
             <PiDotsNineBold size={"20px"} />
           </div>
           <div className="relative cursor-pointer">
-            <Avatar onClick={() => setToggle(!toggle)} src={authUser?.photoURL} googleId="118096717852922241760" size="40" round={true} />
+            <Avatar onClick={() => setToggle(!toggle)} src={authUser?.photoURL} size="40" round={true} />
             <AnimatePresence>
               {toggle && (
                 <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }} transition={{ duration: 0.1 }} className="absolute right-2 z-20 shadow-lg bg-white rounded-md">
