@@ -1,16 +1,18 @@
-import React from 'react'
-import Header from './components/Header'
-import Body from './components/Body'
-import Footer from './components/Footer'
+import React, { useState } from "react";
+import Header from "./components/Header";
+import Body from "./components/Body";
+import Footer from "./components/Footer";
 
 const App = () => {
-  return (
-    <>
-      <Header/>
-      <Body/>
-      <Footer/>
-    </>
-  )
-}
+  const [searchQuery, setSearchQuery] = useState("");
 
-export default App
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header input={searchQuery} setInput={setSearchQuery} />
+      <Body searchQuery={searchQuery} />
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
