@@ -3,15 +3,26 @@ import { useEffect, useState } from "react";
 
 const Body = ({ searchQuery }) => {
   const [product, setProduct] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get("https://fakestoreapi.com/products")
       .then((api) => setProduct(api.data))
-      .catch((error) => console.error("Failed to fetch products:", error));
+      .catch((error) => console.error("Failed to fetch products:", error))
+      .finally(() => setLoading(false));
   }, []);
 
   const filteredProducts = product.filter((p) => p.title.toLowerCase().includes(searchQuery.toLowerCase()));
+
+  if (loading || filteredProducts.length === 0) {
+    return (
+      <div className="flex flex-grow justify-center items-center">
+        <h1 className="text-3xl">{loading ? "Loading..." : "No products found"}</h1>
+      </div>
+    );
+  }
+
 
   return (
     <div className="flex flex-grow flex-wrap gap-5 p-5 justify-center ">
