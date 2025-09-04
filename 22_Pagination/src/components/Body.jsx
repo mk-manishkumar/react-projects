@@ -23,7 +23,10 @@ const Body = () => {
 
   return (
     <>
-      <div className="flex flex-grow flex-wrap gap-5 p-5 justify-center ">
+    <header className="flex justify-center bg-black text-white py-4">
+      <h1 className="text-3xl font-semibold">PAGINATION</h1>
+    </header>
+      <div className="flex flex-wrap gap-5 p-5 justify-center ">
         {product.map((p) => (
           <div key={p.id} className="w-60 border border-black rounded-md p-5 text-center flex flex-col gap-2 justify-center items-center">
             <img src={p.image} alt={p.title} className="w-20" />
